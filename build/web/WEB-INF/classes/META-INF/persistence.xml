@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="EcommerceProjectPU" transaction-type="JTA">
+    <jta-data-source>jdbc/ecommercedb</jta-data-source>
+    <class>models.Payments</class>
+    <class>models.Orders</class>
+    <class>models.OrderDetails</class>
+    <class>models.Users</class>
+    <class>models.Reviews</class>
+    <class>models.Groups</class>
+    <class>models.Categories</class>
+    <class>models.Brands</class>
+    <class>models.Products</class>
+    <class>models.Settings</class>
+    <class>models.Banners</class>
+    <class>models.Carts</class>
+    <class>models.Orders_1</class>
+    <class>models.Products_1</class>
+    <class>models.Categories_1</class>
+    <class>models.Brands_1</class>
+    <class>models.Users_1</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/ecommercedb?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
+      <property name="javax.persistence.jdbc.user" value="gaurav"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="11111111"/>
+    </properties>
+  </persistence-unit>
+</persistence>
