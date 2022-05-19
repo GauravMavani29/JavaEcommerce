@@ -59,24 +59,35 @@ public class Userbean implements UserbeanLocal {
     
     
     @Override
-    public void addOrderDetail(Integer order_no, Integer product_id, Integer total) {
-        Products p =  em.find(Products.class, product_id);
-        Orders on =  em.find(Orders.class, order_no);
-        
+    public void addOrderDetail(Integer order_no_details, Integer product_id, Integer total) {
         OrderDetails o = new OrderDetails();
-        o.setOrderNo(on);
+        Orders on =  em.find(Orders.class, order_no_details);
+        Products p =  em.find(Products.class, product_id);
+        
+        o.setOrderNoDetails(on);
         o.setProductId(p);
         o.setTotal(total);
         
         em.persist(o);   
+        
+        Collection<OrderDetails> order = on.getOrderDetailsCollection();
+        Collection<OrderDetails> product = p.getOrderDetailsCollection();
+        
+        order.add(o);
+        on.setOrderDetailsCollection(order);
+        em.merge(on);
+        
+        product.add(o);
+        p.setOrderDetailsCollection(product);
+        em.merge(p);
     }
 
     @Override
-    public void addPayment(Integer order_no, Integer amount, String method) {
-        Orders on =  em.find(Orders.class, order_no);
+    public void addPayment(Integer order_no_payment, Integer amount, String method) {
+        Orders on =  em.find(Orders.class, order_no_payment);
         
         Payments p = new Payments();
-        p.setOrderNo(on);
+        p.setOrderNoPayment(on);
         p.setTotalAmount(amount);
         p.setPaymentMethod(method);
         em.persist(p);   

@@ -39,6 +39,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Banners.findByCreatedAt", query = "SELECT b FROM Banners b WHERE b.createdAt = :createdAt")})
 public class Banners implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
@@ -63,14 +69,7 @@ public class Banners implements Serializable {
     @NotNull
     @Column(name = "is_active")
     private int isActive;
-
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
-    @Column(name = "created_at", insertable = false, updatable = false)
+    @Column(name = "created_at",insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
@@ -98,6 +97,37 @@ public class Banners implements Serializable {
         this.id = id;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public int getIsActive() {
         return isActive;
@@ -138,38 +168,6 @@ public class Banners implements Serializable {
     @Override
     public String toString() {
         return "models.Banners[ id=" + id + " ]";
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getLink() {
-        return link;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
     
 }

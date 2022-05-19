@@ -4,13 +4,19 @@
  */
 package Servlet;
 
+import beans.AdminbeanLocal;
+import beans.UserbeanLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collection;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.OrderDetails;
+import models.Orders;
 
 /**
  *
@@ -18,6 +24,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "OrdersServlet", urlPatterns = {"/OrdersServlet"})
 public class OrdersServlet extends HttpServlet {
+ @EJB UserbeanLocal ecm;
+ @EJB AdminbeanLocal aecm;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,8 +47,36 @@ public class OrdersServlet extends HttpServlet {
             out.println("<title>Servlet OrdersServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet OrdersServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
+//            ecm.addOrder(123456, 48, "Urvesh", "Surat", 395006);
+            aecm.addOrderDetail(12, 1, 1200);
+            ecm.addPayment(12, 1200, "Paypal");
+            Collection<OrderDetails> orders = aecm.getAllOrderDetails();
+            out.println("<h1>Orders List</h1>");
+            out.println("<table border='1px' width='400' height='250'>");
+            out.println("<tr>");
+            out.println("<th>OrderNo</th>");
+            out.println("<th>ProductName</th>");
+            out.println("<th>CustomerName</th>");
+            out.println("<th>Address</th>");
+            out.println("<th>Pincode</th>");
+            out.println("<th>OrderDate</th>");
+            out.println("<th>Amount</th>");
+            out.println("</tr>");
+
+            for(OrderDetails s : orders){
+                out.println("<tr>");
+                out.println("<td>" + s.getOrderNoDetails().getOrderNo()+ "</td>"); 
+                out.println("<td>" + s.getProductId().getName()+ "</td>"); 
+                out.println("<td>" + s.getOrderNoDetails().getName()+ "</td>"); 
+                out.println("<td>" + s.getOrderNoDetails().getAddress()+ "</td>"); 
+                out.println("<td>" + s.getOrderNoDetails().getPincode()+ "</td>"); 
+                out.println("<td>" + s.getOrderNoDetails().getOrderDate()+ "</td>"); 
+                out.println("<td>" + s.getTotal()+ "</td>"); 
+                out.println("</tr>");
+            }        
+            
+            out.println("</table>");
+            
             out.println("</html>");
         }
     }

@@ -66,7 +66,7 @@ public class RestClientServlet extends HttpServlet {
 //            rc.addUser("Gaurav","gauravmavani29@gmail.com","123456","Surat", "1234567890","395006");
 //            rc.addUser("Urvesh","urvesh@gmail.com","123456","Vadodara", "1234567890","395006");
 //            rc.addUser("Artik","artik@gmail.com","123456","Canada", "1234567890","395006");
-//            rc.updateUser("10","111","1111","111","dfgfwe","2121","212121");
+           // rc.updateUser("10","111","1111","111","dfgfwe","2121","212121");
 //            rc.removeUser("10");
 //            Colection<Users> user;
             GenericType<Collection<Users>> guser = new GenericType<Collection<Users>>(){};
@@ -287,9 +287,9 @@ public class RestClientServlet extends HttpServlet {
             
             out.println("</table>");
             
-            rc.addOrder("123456","48","Artik","Surat","395006");
-            rc.addOrderDetail("123456", "1", "1200");
-            rc.addPayment("123456", "1200", "Paypal");
+          rc.addOrder("123456","48","Artik","Surat","395006");
+          //  rc.addOrderDetail("123456", "1", "1200");
+            //rc.addPayment("123456", "1200", "Paypal");
             
             GenericType<Collection<OrderDetails>> gorder = new GenericType<Collection<OrderDetails>>(){};
             
@@ -312,13 +312,13 @@ public class RestClientServlet extends HttpServlet {
 
             for(OrderDetails s : orders){
                 out.println("<tr>");
-                out.println("<td>" + s.getOrderNo()+ "</td>"); 
-                out.println("<td>" + s.getOrderNo().getUserId()+ "</td>"); 
-                out.println("<td>" + s.getOrderNo().getName()+ "</td>"); 
+                out.println("<td>" + s.getOrderNoDetails()+ "</td>"); 
+                out.println("<td>" + s.getOrderNoDetails().getUserId()+ "</td>"); 
+                out.println("<td>" + s.getOrderNoDetails().getName()+ "</td>"); 
                 out.println("<td>" + s.getProductId().getName()+ "</td>"); 
-                out.println("<td>" + s.getOrderNo().getAddress()+ "</td>"); 
-                out.println("<td>" + s.getOrderNo().getPincode()+ "</td>"); 
-                out.println("<td>" + s.getOrderNo().getOrderDate()+ "</td>"); 
+                out.println("<td>" + s.getOrderNoDetails().getAddress()+ "</td>"); 
+                out.println("<td>" + s.getOrderNoDetails().getPincode()+ "</td>"); 
+                out.println("<td>" + s.getOrderNoDetails().getOrderDate()+ "</td>"); 
                 out.println("<td>" + s.getTotal()+ "</td>"); 
                 out.println("</tr>");
             }        

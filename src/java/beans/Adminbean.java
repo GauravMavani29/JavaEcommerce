@@ -93,7 +93,7 @@ public class Adminbean implements AdminbeanLocal {
         if(users.contains(u)){ 
             u.setGroupName(group_name);
             u.setUserId(c);
-            em.persist(u);
+            em.merge(u);
 
             users.add(u);
             c.setGroupsCollection(users);
@@ -369,5 +369,29 @@ public class Adminbean implements AdminbeanLocal {
     public void removeReview(Integer id) {
        Reviews u = (Reviews) em.find(Reviews.class, id);
        em.remove(u);
+    }
+
+    @Override
+    public void addOrderDetail(Integer order_no_details, Integer product_id, Integer total) {
+        OrderDetails o = new OrderDetails();
+        Orders on =  em.find(Orders.class, order_no_details);
+        Products p =  em.find(Products.class, product_id);
+        
+        o.setOrderNoDetails(on);
+        o.setProductId(p);
+        o.setTotal(total);
+        
+        em.persist(o);   
+        
+        Collection<OrderDetails> order = on.getOrderDetailsCollection();
+        Collection<OrderDetails> product = p.getOrderDetailsCollection();
+        
+        order.add(o);
+        on.setOrderDetailsCollection(order);
+        em.merge(on);
+        
+        product.add(o);
+        p.setOrderDetailsCollection(product);
+        em.merge(p);
     }
 }

@@ -43,6 +43,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Categories.findByCreatedAt", query = "SELECT c FROM Categories c WHERE c.createdAt = :createdAt")})
 public class Categories implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
@@ -63,15 +69,7 @@ public class Categories implements Serializable {
     @Size(min = 1, max = 300)
     @Column(name = "meta_description")
     private String metaDescription;
-
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
-    @Basic(optional = false)
-    @Column(name = "created_at", insertable = false, updatable = false)
+    @Column(name = "created_at",insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryId")
@@ -84,13 +82,12 @@ public class Categories implements Serializable {
         this.id = id;
     }
 
-    public Categories(Integer id, String name, String image, String metaTitle, String metaDescription, Date createdAt) {
+    public Categories(Integer id, String name, String image, String metaTitle, String metaDescription) {
         this.id = id;
         this.name = name;
         this.image = image;
         this.metaTitle = metaTitle;
         this.metaDescription = metaDescription;
-        this.createdAt = createdAt;
     }
 
     public Integer getId() {
@@ -101,6 +98,21 @@ public class Categories implements Serializable {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public String getMetaTitle() {
         return metaTitle;
@@ -160,20 +172,5 @@ public class Categories implements Serializable {
     public String toString() {
         return "models.Categories[ id=" + id + " ]";
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
+    
 }

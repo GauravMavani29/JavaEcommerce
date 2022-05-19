@@ -20,7 +20,7 @@ import models.Brands;
  *
  * @author RUBYSTA JEWELS
  */
-@WebServlet(name = "BrandsServlet", urlPatterns = {"/BrandsServlet"})
+    @WebServlet(name = "BrandsServlet", urlPatterns = {"/BrandsServlet"})
 public class BrandsServlet extends HttpServlet {
  @EJB AdminbeanLocal ecm;
 

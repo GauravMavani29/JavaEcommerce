@@ -44,8 +44,8 @@ public class BannersServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
 //          ecm.removeBanner(1);
-          ecm.addBanner("dasd", "dasdsd", "dsadsd", "dsadsd",1);
-          ecm.updateBanner(2, "dasd3232", "dasdsd3232", "dsadsd323", "dasds323", 1);
+//          ecm.addBanner("dasd", "dasdsd", "dsadsd", "dsadsd",1);
+//          ecm.updateBanner(2, "dasd3232", "dasdsd3232", "dsadsd323", "dasds323", 1);
 
             out.println("<h1>Banners List</h1>");
             out.println("<table border='1px' width='400' height='250'>");

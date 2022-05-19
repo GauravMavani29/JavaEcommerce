@@ -90,9 +90,13 @@ public class Users implements Serializable {
     @NotNull
     @Column(name = "is_active")
     private int isActive;
-    @Column(name = "created_at", insertable = false, updatable = false)
+    @Column(name = "created_at",insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerId")
+    private Collection<Carts> cartsCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerId")
+    private Collection<Reviews> reviewsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Collection<Groups> groupsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
@@ -194,6 +198,25 @@ public class Users implements Serializable {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    @XmlTransient
+    public Collection<Carts> getCartsCollection() {
+        return cartsCollection;
+    }
+
+    public void setCartsCollection(Collection<Carts> cartsCollection) {
+        this.cartsCollection = cartsCollection;
+    }
+
+    @XmlTransient
+    @JsonbTransient
+    public Collection<Reviews> getReviewsCollection() {
+        return reviewsCollection;
+    }
+
+    public void setReviewsCollection(Collection<Reviews> reviewsCollection) {
+        this.reviewsCollection = reviewsCollection;
     }
 
     @XmlTransient

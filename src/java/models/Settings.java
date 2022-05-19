@@ -17,7 +17,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -38,6 +37,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Settings.findByCreatedAt", query = "SELECT s FROM Settings s WHERE s.createdAt = :createdAt")})
 public class Settings implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
     @Size(max = 100)
     @Column(name = "sitemap_link")
     private String sitemapLink;
@@ -50,15 +55,7 @@ public class Settings implements Serializable {
     @Size(max = 200)
     @Column(name = "description")
     private String description;
-
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
-    @Basic(optional = false)
-    @Column(name = "created_at", insertable = false, updatable = false)
+    @Column(name = "created_at",insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
@@ -67,11 +64,6 @@ public class Settings implements Serializable {
 
     public Settings(Integer id) {
         this.id = id;
-    }
-
-    public Settings(Integer id, Date createdAt) {
-        this.id = id;
-        this.createdAt = createdAt;
     }
 
     public Integer getId() {
@@ -90,6 +82,29 @@ public class Settings implements Serializable {
         this.sitemapLink = sitemapLink;
     }
 
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public Date getCreatedAt() {
         return createdAt;
@@ -122,31 +137,6 @@ public class Settings implements Serializable {
     @Override
     public String toString() {
         return "models.Settings[ id=" + id + " ]";
-    }
-
-
-    public String getKeyword() {
-        return keyword;
-    }
-
-    public void setKeyword(String keyword) {
-        this.keyword = keyword;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
     
 }

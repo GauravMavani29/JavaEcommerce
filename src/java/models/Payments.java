@@ -19,7 +19,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -44,33 +43,23 @@ public class Payments implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "total_amount")
-    private int totalAmount;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 30)
+    private Integer totalAmount;
+    @Size(max = 30)
     @Column(name = "payment_method")
     private String paymentMethod;
-    @Column(name = "created_at", insertable = false, updatable = false)
+    @Column(name = "created_at",insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
-    @JoinColumn(name = "order_no", referencedColumnName = "order_no")
+    @JoinColumn(name = "order_no_payment", referencedColumnName = "order_no")
     @ManyToOne(optional = false)
-    private Orders orderNo;
+    private Orders orderNoPayment;
 
     public Payments() {
     }
 
     public Payments(Integer id) {
         this.id = id;
-    }
-
-    public Payments(Integer id, int customerId, int totalAmount, String paymentMethod) {
-        this.id = id;
-        this.totalAmount = totalAmount;
-        this.paymentMethod = paymentMethod;
     }
 
     public Integer getId() {
@@ -81,12 +70,11 @@ public class Payments implements Serializable {
         this.id = id;
     }
 
-
-    public int getTotalAmount() {
+    public Integer getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(int totalAmount) {
+    public void setTotalAmount(Integer totalAmount) {
         this.totalAmount = totalAmount;
     }
 
@@ -106,12 +94,12 @@ public class Payments implements Serializable {
         this.createdAt = createdAt;
     }
 
-    public Orders getOrderNo() {
-        return orderNo;
+    public Orders getOrderNoPayment() {
+        return orderNoPayment;
     }
 
-    public void setOrderNo(Orders orderNo) {
-        this.orderNo = orderNo;
+    public void setOrderNoPayment(Orders orderNoPayment) {
+        this.orderNoPayment = orderNoPayment;
     }
 
     @Override

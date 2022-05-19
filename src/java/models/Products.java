@@ -52,6 +52,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Products.findByCreatedAt", query = "SELECT p FROM Products p WHERE p.createdAt = :createdAt")})
 public class Products implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -66,7 +72,7 @@ public class Products implements Serializable {
     @Column(name = "description")
     private String description;
     @Basic(optional = false)
-    @NotNull()
+    @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "image")
     private String image;
@@ -89,19 +95,12 @@ public class Products implements Serializable {
     @Column(name = "meta_description")
     private String metaDescription;
     @Basic(optional = false)
-    @NotNull()
+    @NotNull
     @Column(name = "is_feature")
     private int isFeature;
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
     @Column(name = "is_active")
     private Integer isActive;
-    @Basic(optional = false)
-    @Column(name = "created_at", insertable = false, updatable = false)
+    @Column(name = "created_at",insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
@@ -124,7 +123,7 @@ public class Products implements Serializable {
         this.id = id;
     }
 
-    public Products(Integer id, String name, String description, String image, int qty, int price, int clubPoints, int isFeature, Date createdAt) {
+    public Products(Integer id, String name, String description, String image, int qty, int price, int clubPoints, int isFeature) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -133,7 +132,6 @@ public class Products implements Serializable {
         this.price = price;
         this.clubPoints = clubPoints;
         this.isFeature = isFeature;
-        this.createdAt = createdAt;
     }
 
     public Integer getId() {
@@ -144,6 +142,53 @@ public class Products implements Serializable {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public int getQty() {
+        return qty;
+    }
+
+    public void setQty(int qty) {
+        this.qty = qty;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
 
     public int getClubPoints() {
         return clubPoints;
@@ -263,52 +308,5 @@ public class Products implements Serializable {
     public String toString() {
         return "models.Products[ id=" + id + " ]";
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSlug() {
-        return slug;
-    }
-
-    public void setSlug(String slug) {
-        this.slug = slug;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public int getQty() {
-        return qty;
-    }
-
-    public void setQty(int qty) {
-        this.qty = qty;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
+    
 }

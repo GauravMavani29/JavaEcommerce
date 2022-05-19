@@ -51,7 +51,7 @@ public class Reviews implements Serializable {
     @Size(max = 200)
     @Column(name = "description")
     private String description;
-    @Column(name = "created_at", insertable = false, updatable = false)
+    @Column(name = "created_at",insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
     @JoinColumn(name = "order_no", referencedColumnName = "order_no")

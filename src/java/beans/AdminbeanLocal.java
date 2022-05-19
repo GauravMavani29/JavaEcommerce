@@ -12,6 +12,7 @@ import models.*;
  *
  * @author RUBYSTA JEWELS
  */
+
 @Local
 public interface AdminbeanLocal {
       // User 
@@ -70,4 +71,6 @@ public interface AdminbeanLocal {
     Collection<Reviews> getAllReviews();
     void updateReview(Integer id ,Integer rating, String description);
     void removeReview(Integer id); 
+    
+    void addOrderDetail(Integer order_no_details, Integer product_id, Integer total);
 }

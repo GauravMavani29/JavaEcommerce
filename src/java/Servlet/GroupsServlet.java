@@ -44,7 +44,7 @@ public class GroupsServlet extends HttpServlet {
             out.println("<title>Servlet GroupsServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            ecm.removeGroup(2,2);
+//            ecm.removeGroup(2,2);
 //            ecm.addGroup("admin",2);
 //            ecm.Group(2,"dasd","dasd","dasd","dfgfwe",(double)1000,02222);
 

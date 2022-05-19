@@ -27,10 +27,10 @@ public interface UserbeanLocal {
     void addOrder(Integer order_no, Integer user_id, String name, String address, Integer pincode);
     
     //OrderDetails
-    void addOrderDetail(Integer order_no, Integer product_id, Integer total);
+    void addOrderDetail(Integer order_no_details, Integer product_id, Integer total);
     
     //Payments
-    void addPayment(Integer order_no, Integer amount, String method);
+    void addPayment(Integer order_no_payment, Integer amount, String method);
     
     Collection<Orders> userOrders(Users user_id);
     

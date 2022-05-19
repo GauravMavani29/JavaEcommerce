@@ -327,7 +327,7 @@ public class EcommerceapiResource {
     @POST
     @Path("addOrderDetail/{order_no}/{product_id}/{total}")
     public void addOrderDetail(@PathParam("order_no")Integer order_no, @PathParam("product_id")Integer product_id, @PathParam("total")Integer total) {
-        user.addOrderDetail(order_no, product_id, total);
+//        user.addOrderDetail(order_no, product_id, total);
     }
     
     //AddUserOrderPayment

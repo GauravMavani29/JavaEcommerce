@@ -5,8 +5,11 @@
 package models;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,12 +19,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -42,38 +47,38 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Orders implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "order_no")
     private int orderNo;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
+    @Size(max = 20)
     @Column(name = "name")
     private String name;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 200)
+    @Size(max = 200)
     @Column(name = "address")
     private String address;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "pincode")
-    private int pincode;
-    @Column(name = "order_date", insertable = false, updatable = false)
+    private Integer pincode;
+    @Column(name = "order_date",insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date orderDate;
-    @Column(name = "created_at", insertable = false, updatable = false)
+    @Column(name = "created_at",insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderNo")
+    private Collection<Reviews> reviewsCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderNoPayment")
+    private Collection<Payments> paymentsCollection;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Users userId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderNoDetails")
+    private Collection<OrderDetails> orderDetailsCollection;
 
     public Orders() {
     }
@@ -82,12 +87,9 @@ public class Orders implements Serializable {
         this.id = id;
     }
 
-    public Orders(Integer id, int orderNo, String name, String address, int pincode) {
+    public Orders(Integer id, int orderNo) {
         this.id = id;
         this.orderNo = orderNo;
-        this.name = name;
-        this.address = address;
-        this.pincode = pincode;
     }
 
     public Integer getId() {
@@ -122,11 +124,11 @@ public class Orders implements Serializable {
         this.address = address;
     }
 
-    public int getPincode() {
+    public Integer getPincode() {
         return pincode;
     }
 
-    public void setPincode(int pincode) {
+    public void setPincode(Integer pincode) {
         this.pincode = pincode;
     }
 
@@ -146,12 +148,41 @@ public class Orders implements Serializable {
         this.createdAt = createdAt;
     }
 
+    @XmlTransient
+    public Collection<Reviews> getReviewsCollection() {
+        return reviewsCollection;
+    }
+
+    public void setReviewsCollection(Collection<Reviews> reviewsCollection) {
+        this.reviewsCollection = reviewsCollection;
+    }
+
+    @XmlTransient
+    @JsonbTransient
+    public Collection<Payments> getPaymentsCollection() {
+        return paymentsCollection;
+    }
+
+    public void setPaymentsCollection(Collection<Payments> paymentsCollection) {
+        this.paymentsCollection = paymentsCollection;
+    }
+
     public Users getUserId() {
         return userId;
     }
 
     public void setUserId(Users userId) {
         this.userId = userId;
+    }
+
+    @XmlTransient
+    @JsonbTransient
+    public Collection<OrderDetails> getOrderDetailsCollection() {
+        return orderDetailsCollection;
+    }
+
+    public void setOrderDetailsCollection(Collection<OrderDetails> orderDetailsCollection) {
+        this.orderDetailsCollection = orderDetailsCollection;
     }
 
     @Override

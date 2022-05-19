@@ -7,7 +7,6 @@ package models;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
-import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -40,12 +39,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Brands.findByCreatedAt", query = "SELECT b FROM Brands b WHERE b.createdAt = :createdAt")})
 public class Brands implements Serializable {
 
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 30)
-    @Column(name = "name")
-    private String name;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,7 +46,11 @@ public class Brands implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "created_at", insertable = false, updatable = false)
+    @NotNull
+    @Size(min = 1, max = 30)
+    @Column(name = "name")
+    private String name;
+    @Column(name = "created_at",insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "brandId")
@@ -66,10 +63,9 @@ public class Brands implements Serializable {
         this.id = id;
     }
 
-    public Brands(Integer id, String name, Date createdAt) {
+    public Brands(Integer id, String name) {
         this.id = id;
         this.name = name;
-        this.createdAt = createdAt;
     }
 
     public Integer getId() {
@@ -80,6 +76,13 @@ public class Brands implements Serializable {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public Date getCreatedAt() {
         return createdAt;
@@ -90,7 +93,6 @@ public class Brands implements Serializable {
     }
 
     @XmlTransient
-    @JsonbTransient
     public Collection<Products> getProductsCollection() {
         return productsCollection;
     }
@@ -122,14 +124,6 @@ public class Brands implements Serializable {
     @Override
     public String toString() {
         return "models.Brands[ id=" + id + " ]";
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
     
 }

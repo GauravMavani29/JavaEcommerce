@@ -19,7 +19,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -42,16 +41,14 @@ public class OrderDetails implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "total")
-    private int total;
-    @Column(name = "created_at")
+    private Integer total;
+    @Column(name = "created_at",insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
-    @JoinColumn(name = "order_no", referencedColumnName = "order_no")
+    @JoinColumn(name = "order_no_details", referencedColumnName = "order_no")
     @ManyToOne(optional = false)
-    private Orders orderNo;
+    private Orders orderNoDetails;
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Products productId;
@@ -63,11 +60,6 @@ public class OrderDetails implements Serializable {
         this.id = id;
     }
 
-    public OrderDetails(Integer id, int total) {
-        this.id = id;
-        this.total = total;
-    }
-
     public Integer getId() {
         return id;
     }
@@ -76,11 +68,11 @@ public class OrderDetails implements Serializable {
         this.id = id;
     }
 
-    public int getTotal() {
+    public Integer getTotal() {
         return total;
     }
 
-    public void setTotal(int total) {
+    public void setTotal(Integer total) {
         this.total = total;
     }
 
@@ -92,12 +84,12 @@ public class OrderDetails implements Serializable {
         this.createdAt = createdAt;
     }
 
-    public Orders getOrderNo() {
-        return orderNo;
+    public Orders getOrderNoDetails() {
+        return orderNoDetails;
     }
 
-    public void setOrderNo(Orders orderNo) {
-        this.orderNo = orderNo;
+    public void setOrderNoDetails(Orders orderNoDetails) {
+        this.orderNoDetails = orderNoDetails;
     }
 
     public Products getProductId() {
