@@ -365,7 +365,7 @@ public class Adminbean implements AdminbeanLocal {
 
     @Override
     public Collection<Reviews> getAllReviews() {
-       return em.createNamedQuery("Reviews.findById").getResultList();
+       return em.createNamedQuery("Reviews.findAll").getResultList();
     }
 
     @Override
@@ -396,7 +396,7 @@ public class Adminbean implements AdminbeanLocal {
         
         Collection<OrderDetails> order = on.getOrderDetailsCollection();
         Collection<OrderDetails> product = p.getOrderDetailsCollection();
-        
+                
         order.add(o);
         on.setOrderDetailsCollection(order);
         em.merge(on);
