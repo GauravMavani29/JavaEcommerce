@@ -394,16 +394,6 @@ public class Adminbean implements AdminbeanLocal {
         
         em.persist(o);   
         
-        Collection<OrderDetails> order = on.getOrderDetailsCollection();
-        Collection<OrderDetails> product = p.getOrderDetailsCollection();
-                
-        order.add(o);
-        on.setOrderDetailsCollection(order);
-        em.merge(on);
-        
-        product.add(o);
-        p.setOrderDetailsCollection(product);
-        em.merge(p);
     }
 
     @Override

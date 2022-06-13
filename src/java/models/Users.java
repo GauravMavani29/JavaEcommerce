@@ -7,7 +7,6 @@ package models;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
-import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -47,7 +46,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Users.findByIsActive", query = "SELECT u FROM Users u WHERE u.isActive = :isActive"),
     @NamedQuery(name = "Users.findByCreatedAt", query = "SELECT u FROM Users u WHERE u.createdAt = :createdAt"),
     @NamedQuery(name = "Users.findByEmailandPassword", query = "SELECT u FROM Users u WHERE u.email = :email AND u.password = :password"),
-
 })
 public class Users implements Serializable {
 
@@ -76,7 +74,7 @@ public class Users implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "role_as")
-    private int roleAs;
+    private short roleAs;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 200)
@@ -94,10 +92,8 @@ public class Users implements Serializable {
     @NotNull
     @Column(name = "clubpoints")
     private int clubpoints;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "is_active")
-    private int isActive;
+    private Integer isActive;
     @Column(name = "created_at",insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
@@ -117,16 +113,15 @@ public class Users implements Serializable {
         this.id = id;
     }
 
-    public Users(Integer id, String name, String email, String password, int role_as ,String address, int pincode, int clubpoints, int isActive) {
+    public Users(Integer id, String name, String email, String password, short roleAs, String address, int pincode, int clubpoints) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.roleAs = role_as;
+        this.roleAs = roleAs;
         this.address = address;
         this.pincode = pincode;
         this.clubpoints = clubpoints;
-        this.isActive = isActive;
     }
 
     public Integer getId() {
@@ -161,6 +156,14 @@ public class Users implements Serializable {
         this.password = password;
     }
 
+    public short getRoleAs() {
+        return roleAs;
+    }
+
+    public void setRoleAs(short roleAs) {
+        this.roleAs = roleAs;
+    }
+
     public String getAddress() {
         return address;
     }
@@ -193,20 +196,12 @@ public class Users implements Serializable {
         this.clubpoints = clubpoints;
     }
 
-    public int getIsActive() {
+    public Integer getIsActive() {
         return isActive;
     }
 
-    public void setIsActive(int isActive) {
+    public void setIsActive(Integer isActive) {
         this.isActive = isActive;
-    }
-    
-    public int getRoleAs() {
-        return roleAs;
-    }
-
-    public void setRoleAs(int roleAs) {
-        this.roleAs = roleAs;
     }
 
     public Date getCreatedAt() {
@@ -227,7 +222,6 @@ public class Users implements Serializable {
     }
 
     @XmlTransient
-    @JsonbTransient
     public Collection<Reviews> getReviewsCollection() {
         return reviewsCollection;
     }
@@ -237,7 +231,6 @@ public class Users implements Serializable {
     }
 
     @XmlTransient
-    @JsonbTransient
     public Collection<Groups> getGroupsCollection() {
         return groupsCollection;
     }
@@ -247,7 +240,6 @@ public class Users implements Serializable {
     }
 
     @XmlTransient
-    @JsonbTransient
     public Collection<Orders> getOrdersCollection() {
         return ordersCollection;
     }

@@ -53,13 +53,12 @@
                                         </h:column>
                                         <h:column>
                                             <f:facet name="header" >Payment Type</f:facet>
-                                            <h:outputText value="#{o.orderPayment.paymentMethod}"></h:outputText>
+                                            <h:outputText value="#{o.payments.paymentMethod}"></h:outputText>
                                         </h:column>
                                         <h:column>
                                             <f:facet name="header" >Total Amount</f:facet>
-                                            <h:outputText value="#{o.orderPayment.totalAmount}"></h:outputText>
+                                            <h:outputText value="#{o.payments.totalAmount}"></h:outputText>
                                         </h:column>
-                                       
                                     </h:dataTable>
                                   </div>
                                 </div>

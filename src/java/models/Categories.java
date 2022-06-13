@@ -7,7 +7,6 @@ package models;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
-import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -139,7 +138,6 @@ public class Categories implements Serializable {
     }
 
     @XmlTransient
-    @JsonbTransient
     public Collection<Products> getProductsCollection() {
         return productsCollection;
     }

@@ -6,6 +6,7 @@ package jsfbeans;
 
 import beans.AdminbeanLocal;
 import client.RestClient;
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import javax.ejb.EJB;
@@ -86,14 +87,15 @@ public class auth {
         }
     }
     
-    public String logoutUser(){
+    public void logoutUser()  throws IOException{
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         if(session.getAttribute("user") != null){
-//            us = (Users) session.getAttribute("user");
-//            System.out.print(us);
+            us = (Users) session.getAttribute("user");
+            System.out.print(us);
             session.removeAttribute("user");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("http://localhost:8080/EcommerceProject/faces/login.xhtml");
         }
-        return "login.xhtml?faces-redirect=true";
+        FacesContext.getCurrentInstance().getExternalContext().redirect("http://localhost:8080/EcommerceProject/faces/login.xhtml");
     }
     
     public void validatePasswordCorrect(FacesContext context, UIComponent component,
