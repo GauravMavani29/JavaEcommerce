@@ -29,6 +29,7 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(REST.EcommerceapiResource.class);
+        resources.add(models.service.UsersFacadeREST.class);
     }
     
 }

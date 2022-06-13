@@ -10,7 +10,7 @@ import models.Groups;
 import models.Orders;
 import models.Reviews;
 
-@Generated(value="EclipseLink-2.7.9.v20210604-rNA", date="2022-05-19T19:26:55")
+@Generated(value="EclipseLink-2.7.9.v20210604-rNA", date="2022-06-13T12:28:58")
 @StaticMetamodel(Users.class)
 public class Users_ { 
 
@@ -28,5 +28,6 @@ public class Users_ {
     public static volatile SingularAttribute<Users, Integer> id;
     public static volatile CollectionAttribute<Users, Groups> groupsCollection;
     public static volatile SingularAttribute<Users, String> email;
+    public static volatile SingularAttribute<Users, Integer> roleAs;
 
 }

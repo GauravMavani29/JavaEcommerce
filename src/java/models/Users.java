@@ -39,12 +39,16 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Users.findByName", query = "SELECT u FROM Users u WHERE u.name = :name"),
     @NamedQuery(name = "Users.findByEmail", query = "SELECT u FROM Users u WHERE u.email = :email"),
     @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password"),
+    @NamedQuery(name = "Users.findByRoleAs", query = "SELECT u FROM Users u WHERE u.roleAs = :roleAs"),
     @NamedQuery(name = "Users.findByAddress", query = "SELECT u FROM Users u WHERE u.address = :address"),
     @NamedQuery(name = "Users.findByPhone", query = "SELECT u FROM Users u WHERE u.phone = :phone"),
     @NamedQuery(name = "Users.findByPincode", query = "SELECT u FROM Users u WHERE u.pincode = :pincode"),
     @NamedQuery(name = "Users.findByClubpoints", query = "SELECT u FROM Users u WHERE u.clubpoints = :clubpoints"),
     @NamedQuery(name = "Users.findByIsActive", query = "SELECT u FROM Users u WHERE u.isActive = :isActive"),
-    @NamedQuery(name = "Users.findByCreatedAt", query = "SELECT u FROM Users u WHERE u.createdAt = :createdAt")})
+    @NamedQuery(name = "Users.findByCreatedAt", query = "SELECT u FROM Users u WHERE u.createdAt = :createdAt"),
+    @NamedQuery(name = "Users.findByEmailandPassword", query = "SELECT u FROM Users u WHERE u.email = :email AND u.password = :password"),
+
+})
 public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -69,6 +73,10 @@ public class Users implements Serializable {
     @Size(min = 1, max = 200)
     @Column(name = "password")
     private String password;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "role_as")
+    private int roleAs;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 200)
@@ -109,11 +117,12 @@ public class Users implements Serializable {
         this.id = id;
     }
 
-    public Users(Integer id, String name, String email, String password, String address, int pincode, int clubpoints, int isActive) {
+    public Users(Integer id, String name, String email, String password, int role_as ,String address, int pincode, int clubpoints, int isActive) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
+        this.roleAs = role_as;
         this.address = address;
         this.pincode = pincode;
         this.clubpoints = clubpoints;
@@ -190,6 +199,14 @@ public class Users implements Serializable {
 
     public void setIsActive(int isActive) {
         this.isActive = isActive;
+    }
+    
+    public int getRoleAs() {
+        return roleAs;
+    }
+
+    public void setRoleAs(int roleAs) {
+        this.roleAs = roleAs;
     }
 
     public Date getCreatedAt() {

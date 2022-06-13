@@ -63,7 +63,18 @@ public class Adminbean implements AdminbeanLocal {
         Users u = (Users) em.find(Users.class, id);
         em.remove(u);
     }
-
+    
+    
+    @Override
+    public Users getUserByEmailPassword(String email, String password) {
+        Users u = (Users) em.createNamedQuery("Users.findByEmailandPassword").setParameter("email", email).setParameter("password", password).getSingleResult();
+        if(u == null){
+            return null;
+        }else{
+            return u;
+        }
+    }
+    
     @Override
     public Collection<Groups> getAllGroups() {
        return em.createNamedQuery("Groups.findAll").getResultList();
@@ -394,4 +405,36 @@ public class Adminbean implements AdminbeanLocal {
         p.setOrderDetailsCollection(product);
         em.merge(p);
     }
+
+    @Override
+    public Brands getBrand(Integer id) {
+        return (Brands) em.find(Brands.class, id);
+//        Brands b = (Brands) em.createNamedQuery("Brands.findById").setParameter("id", id).getSingleResult();
+//        if(b == null){
+//            return null;
+//        }else{
+//            return b;
+//        }
+    }
+
+    @Override
+    public Categories getCategory(Integer id) {
+        return (Categories) em.find(Categories.class, id);
+    }
+
+    @Override
+    public Settings getSetting(Integer id) {
+        return (Settings) em.find(Settings.class, id);
+    }
+
+    @Override
+    public Banners getBanner(Integer id) {
+        return (Banners) em.find(Banners.class, id);
+    }
+
+    @Override
+    public Products getProduct(Integer id) {
+        return (Products) em.find(Products.class, id);
+    }
+
 }

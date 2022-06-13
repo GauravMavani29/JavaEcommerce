@@ -1,7 +1,11 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      >
     <h:head>
         <title>Facelet Title</title>
         
@@ -24,12 +28,13 @@
         <div class="row align-items-center justify-content-center">
           <div class="col-md-7 py-5">
             <h3>Login</h3>
-            <form action="#" method="post">
+            <h:form>
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-group first">
                     <label for="email">Email Address</label>
-                    <input type="email" class="form-control" placeholder="e.g. john@your-domain.com" id="email" jsfc="h:inputText" />
+                    <p:inputText type="email" styleClass="form-control" placeholder="e.g. john@your-domain.com" id="email" value="#{auth.user.email}" validatorMessage="Email is required" />
+                    <p:message for="email" />
                   </div>    
                 </div>
               </div>
@@ -37,7 +42,8 @@
                 <div class="col-md-12">
                  <div class="form-group last mb-3">
                     <label for="password">Password</label>
-                    <input type="password" class="form-control" placeholder="Your Password" id="password" jsfc="h:inputSecret" />
+                    <p:inputText type="password" class="form-control" pt:placeholder="Your Password" id="password" value="#{auth.user.password}" validatorMessage="Enter valid Password"  />
+                     <p:message for="password" />
                   </div> 
                 </div>
               </div>
@@ -48,9 +54,8 @@
                         <a href="register.xhtml">Sign Up</a><br/>
                     </div>
                 </div>
-              <input type="submit" value="Login" class="btn px-5 btn-primary" />
-
-            </form>
+                <h:commandButton value="Login" styleClass="btn px-5 btn-primary" action="${auth.loginUser()}" />
+            </h:form>
           </div>
         </div>
       </div>

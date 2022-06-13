@@ -1,7 +1,11 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      >
     <h:head>
         <title>Facelet Title</title>
         
@@ -24,18 +28,12 @@
         <div class="row align-items-center justify-content-center">
           <div class="col-md-7 py-5">
             <h3>Register</h3>
-            <form action="#" method="post">
+            <h:form>
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                   <div class="form-group first">
-                    <label for="fname">First Name</label>
-                    <input type="text" class="form-control" placeholder="e.g. John" id="fname" jsfc="h:inputText" />
-                  </div>    
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group first">
-                    <label for="lname">Last Name</label>
-                    <input type="text" class="form-control" placeholder="e.g. Smith" id="lname" jsfc="h:inputText" />
+                    <label for="Name">Name</label>
+                    <p:inputText styleClass="form-control" placeholder="e.g. John" id="name" value="#{auth.user.name}" validatorMessage="User name is required" /> <p:message for="name" />
                   </div>    
                 </div>
               </div>
@@ -43,37 +41,48 @@
                 <div class="col-md-12">
                   <div class="form-group first">
                     <label for="email">Email Address</label>
-                    <input type="email" class="form-control" placeholder="e.g. john@your-domain.com" id="email" jsfc="h:inputText" />
+                    <p:inputText type="email" styleClass="form-control" placeholder="e.g. john@your-domain.com" id="email" value="#{auth.user.email}" validatorMessage="Email is required" />
+                    <p:message for="email" />
+                  </div>    
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group first">
+                    <label for="Phone">Phone Number</label>
+                    <p:inputText styleClass="form-control" placeholder="+00 0000 000 0000" id="Phone" value="#{auth.user.phone}" validatorMessage="Enter valid Phone Number"  />
+                    <p:message for="Phone" />
+                  </div>    
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group first">
+                    <label for="Address">Address</label>
+                    <p:inputText  styleClass="form-control" placeholder="Address" id="Address" value="#{auth.user.address}" validatorMessage="Enter valid Address" />
+                    <p:message for="Address" />
+                  </div>    
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group first">
+                    <label for="Pincode">Pincode</label>
+                    <p:inputText type="number" styleClass="form-control" placeholder="Pincode" id="Pincode" value="#{auth.user.pincode}" validatorMessage="Enter valid Pincode"  />
+                    <p:message for="Pincode" />
                   </div>    
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6">
-                  <div class="form-group first">
-                    <label for="lname">Phone Number</label>
-                    <input type="text" class="form-control" placeholder="+00 0000 000 0000" id="lname" jsfc="h:inputText" />
-                  </div>    
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group first">
-                    <label for="lname">Website</label>
-                    <input type="text" class="form-control" placeholder="e.g. https://google.com" id="lname" jsfc="h:inputText" />
-                  </div>    
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-              
-                  <div class="form-group last mb-3">
+                  <div class="form-groupS last mb-3">
                     <label for="password">Password</label>
-                    <input type="password" class="form-control" placeholder="Your Password" id="password" jsfc="h:inputText" />
+                    <p:inputText type="password" class="form-control" pt:placeholder="Your Password" id="password" value="#{auth.user.password}" validatorMessage="Enter valid Password"  />
+                     <p:message for="password" />
                   </div>
                 </div>
                 <div class="col-md-6">
               
                   <div class="form-group last mb-3">
                     <label for="re-password">Re-type Password</label>
-                    <input type="password" class="form-control" placeholder="Your Password" id="re-password" jsfc="h:inputText" />
+                    <p:inputText type="password" styleClass="form-control" pt:placeholder="Your Password" id="re-password" validatorMessage="Password is not matched" value="#{auth.passwordConfirm}" validator="#{auth.validatePasswordCorrect}" />
+                     <p:message for="re-password" />
                   </div>
                 </div>
               </div>
@@ -84,9 +93,11 @@
                         <a href="login.xhtml">Sign In</a>
                     </div>
                 </div>
-              <input type="submit" value="Register" class="btn px-5 btn-primary" />
-
-            </form>
+                <h:commandButton value="Register" styleClass="btn px-5 btn-primary" action="${auth.registerUser()}"  />
+            </h:form>
+            <h:form>
+            <h:commandButton value="Logout" styleClass="btn px-5 btn-primary" action="${auth.logoutUser()}"  />
+            </h:form>
           </div>
         </div>
       </div>

@@ -92,6 +92,12 @@ public class RestClient {
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
+    public <T> T getUserByEmailPassword(Class<T> responseType, String email, String password) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("getUserByEmailPassword/{0}/{1}", new Object[]{email, password}));
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
+
     public void removeSetting(String id) throws ClientErrorException {
         webTarget.path(java.text.MessageFormat.format("removeSetting/{0}", new Object[]{id})).request().delete();
     }
@@ -149,7 +155,7 @@ public class RestClient {
     }
 
     public void addGroup(String groups_name, String user_id) throws ClientErrorException {
-        webTarget.path(java.text.MessageFormat.format("addUser/{0}/{1}", new Object[]{groups_name, user_id})).request().post(null);
+        webTarget.path(java.text.MessageFormat.format("addGroup/{0}/{1}", new Object[]{groups_name, user_id})).request().post(null);
     }
 
     public <T> T getAllUsers(Class<T> responseType) throws ClientErrorException {
@@ -170,8 +176,20 @@ public class RestClient {
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
+    public <T> T getBrand(Class<T> responseType, String id) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("getBrand/{0}", new Object[]{id}));
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
+
     public void removeReview(String id) throws ClientErrorException {
         webTarget.path(java.text.MessageFormat.format("removeReview/{0}", new Object[]{id})).request().delete();
+    }
+
+    public <T> T getCategory(Class<T> responseType, String id) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("getCategory/{0}", new Object[]{id}));
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
     public void updateUser(String id, String name, String email, String password, String address, String phone, String pincode) throws ClientErrorException {
@@ -220,6 +238,12 @@ public class RestClient {
         webTarget.path(java.text.MessageFormat.format("removeGroup/{0}/{1}", new Object[]{id, user_id})).request().delete();
     }
 
+    public <T> T getSetting(Class<T> responseType, String id) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("getSetting/{0}", new Object[]{id}));
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
+
     public <T> T productReviews(Class<T> responseType, String product_id) throws ClientErrorException {
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("productReviews/{0}", new Object[]{product_id}));
@@ -228,6 +252,12 @@ public class RestClient {
 
     public void addPayment(String order_no, String amount, String method) throws ClientErrorException {
         webTarget.path(java.text.MessageFormat.format("addPayment/{0}/{1}/{2}", new Object[]{order_no, amount, method})).request().post(null);
+    }
+
+    public <T> T getBanner(Class<T> responseType, String id) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("getBanner/{0}", new Object[]{id}));
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
     public <T> T userOrders(Class<T> responseType, String user_id) throws ClientErrorException {

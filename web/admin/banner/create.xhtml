@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <ui:include src="/admin/stylesheets.xhtml"></ui:include>
+    </h:head>
+    <h:body>
+        <div
+            id="main-wrapper"
+            data-layout="vertical"
+            data-navbarbg="skin5"
+            data-sidebartype="full"
+            data-sidebar-position="absolute"
+            data-header-position="absolute"
+            data-boxed-layout="full"
+            >
+            <ui:include src="/admin/navbarhead.xhtml"></ui:include>
+            <div class="page-wrapper">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <h:form class="form-horizontal" enctype="multipart/form-data" prependId="false">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Banner Info</h4>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group last mb-3">
+                                                    <label for="title">Banner Title</label>
+                                                    <p:inputText type="text" class="form-control" pt:placeholder="Banner Title" id="btitle" value="#{settingBanner.banner.title}" validatorMessage="Enter valid Banner Title"  />
+                                                    <p:message for="btitle" />
+                                                </div> 
+                                                <div class="form-group last mb-3">
+                                                    <label for="title">Banner Description</label>
+                                                    <p:inputText type="text" class="form-control" pt:placeholder="Banner Description" id="bdesc" value="#{settingBanner.banner.description}" validatorMessage="Enter valid Banner Description"  />
+                                                    <p:message for="bdesc" />
+                                                </div> 
+                                                <div class="form-group last mb-3">
+                                                    <h:inputFile
+                                                        class="custom-file-input"
+                                                        id="categoryImage"
+                                                        value="#{settingBanner.uploadedFile}"
+                                                        requiredMessage="Enter valid Banner Image"
+                                                        required="true"
+                                                        />
+                                                    <label
+                                                        class="custom-file-label"
+                                                        for="validatedCustomFile"
+                                                        >Choose file...</label
+                                                    >
+                                                    <div class="invalid-feedback">
+                                                        Example invalid custom file feedback
+                                                    </div>
+                                                    <p:message for="categoryImage" />
+                                                </div> 
+                                                <div class="form-group last mb-3">
+                                                    <label for="title">Banner Link</label>
+                                                    <p:inputText type="text" class="form-control" pt:placeholder="Banner Link" id="blink" value="#{settingBanner.banner.link}" validatorMessage="Enter valid Banner Description"  />
+                                                    <p:message for="blink" />
+                                                </div> 
+                                               <div class="form-group last mb-3">
+                                                    <label for="Active">Is Active</label>
+                                                    <h:selectOneMenu class="form-control" value="#{settingBanner.banner.isActive}">
+                                                        <f:selectItem itemLabel="YES" itemValue="1"></f:selectItem>
+                                                        <f:selectItem itemLabel="NO" itemValue="0"></f:selectItem>
+                                                    </h:selectOneMenu>        
+                                                </div> 
+                                            </div>
+                                        </div>
+                                        <h:commandButton value="Add" styleClass="btn px-5 btn-primary" action="${settingBanner.newBanner()}" />
+                                    </div>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ui:include src="/admin/navbarfoot.xhtml"></ui:include>
+    </h:body>
+</html>
+

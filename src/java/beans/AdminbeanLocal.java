@@ -20,6 +20,7 @@ public interface AdminbeanLocal {
     void addUser(String name, String email, String password, String address, String phone, Integer pincode);
     void updateUser(Integer id, String name, String email, String password, String address, String phone, Integer pincode);
     void removeUser(Integer id);
+    Users getUserByEmailPassword(String email,String password);
     
       // Group 
     Collection<Groups> getAllGroups();
@@ -32,30 +33,35 @@ public interface AdminbeanLocal {
     void addBrand(String name);
     void updateBrand(Integer id ,String name);
     void removeBrand(Integer id); 
+    Brands getBrand(Integer id);
     
      // Category
     Collection<Categories> getAllCategories();
     void addCategory(String name, String image, String meta_title, String meta_description);
     void updateCategory(Integer id ,String name, String image, String meta_title, String meta_description);
     void removeCategory(Integer id); 
+    Categories getCategory(Integer id);
     
      // Setting
     Collection<Settings> getAllSettings();
     void addSetting(String sitemaplink, String keyword, String author, String description);
     void updateSetting(Integer id ,String sitemaplink, String keyword, String author, String description);
     void removeSetting(Integer id); 
+    Settings getSetting(Integer id);
     
      // Banner
     Collection<Banners> getAllBanners();
     void addBanner(String title, String description, String link, String image,Integer is_active);
     void updateBanner(Integer id ,String title, String description, String link, String image,Integer is_active);
     void removeBanner(Integer id); 
+    Banners getBanner(Integer id);
     
      // Product
     Collection<Products> getAllProducts();
     void addProduct(Integer category_id, Integer brand_id, String name, String slug, String description, String image, Integer qty, Integer price, Integer club_points, String meta_title, String meta_description, Integer is_feature, Integer is_active);
     void updateProduct(Integer id ,Integer category_id, Integer brand_id, String name, String slug, String description, String image, Integer qty, Integer price, Integer club_points, String meta_title, String meta_description, Integer is_feature, Integer is_active);
     void removeProduct(Integer id,Integer category_id, Integer brand_id); 
+    Products getProduct(Integer id);
     
      // Order
     Collection<Orders> getAllOrders();

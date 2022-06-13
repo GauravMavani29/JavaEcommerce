@@ -7,6 +7,8 @@ package REST;
 import beans.AdminbeanLocal;
 import beans.UserbeanLocal;
 import java.util.Collection;
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -38,6 +40,7 @@ import models.Users;
  * @author RUBYSTA JEWELS
  */
 @Path("/ecommerceapi/")
+//@DeclareRoles({"admin", "customer"})
 public class EcommerceapiResource {
 
     @Context
@@ -53,32 +56,45 @@ public class EcommerceapiResource {
     }
 
     //Users
+   // @RolesAllowed("admin")
     @GET
     @Path("getAllUsers")
     @Produces(MediaType.APPLICATION_JSON)
     public Collection<Users> getAllUsers() {
         return admin.getAllUsers();
     }
-
+    
+    //@RolesAllowed("admin")
     @POST
     @Path("addUser/{name}/{email}/{password}/{address}/{phone}/{pincode}")
     public void addUser(@PathParam("name") String name, @PathParam("email") String email, @PathParam("password") String password, @PathParam("address") String address, @PathParam("phone") String phone, @PathParam("pincode") Integer pincode) {
         admin.addUser(name, email, password, address, phone, pincode);
     }
-
+    
+    //@RolesAllowed("admin")
     @PUT
     @Path("updateUser/{id}/{name}/{email}/{password}/{address}/{phone}/{pincode}")
     public void updateUser(@PathParam("id") Integer id, @PathParam("name") String name, @PathParam("email") String email, @PathParam("password") String password, @PathParam("address") String address, @PathParam("phone") String phone, @PathParam("pincode") Integer pincode) {
         admin.updateUser(id, name, email, password, address, phone, pincode);
     }
 
+    //@RolesAllowed("admin")
     @DELETE
     @Path("removeUser/{id}")
     public void removeUser(@PathParam("id") Integer id) {
         admin.removeUser(id);
     }
+    
+//    @RolesAllowed("admin")
+    @GET
+    @Path("getUserByEmailPassword/{email}/{password}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Users getUserByEmailPassword(@PathParam("email") String email,@PathParam("password") String password){
+        return admin.getUserByEmailPassword(email, password);
+    }
 
     //Groups
+//    @RolesAllowed("admin")
     @GET
     @Path("getAllGroups")
     @Produces(MediaType.APPLICATION_JSON)
@@ -86,18 +102,21 @@ public class EcommerceapiResource {
         return admin.getAllGroups();
     }
 
+//    @RolesAllowed("admin")
     @POST
-    @Path("addUser/{groups_name}/{user_id}")
+    @Path("addGroup/{groups_name}/{user_id}")
     public void addGroup(@PathParam("groups_name") String group_name, @PathParam("user_id") Integer user_id) {
         admin.addGroup(group_name, user_id);
     }
 
+//    @RolesAllowed("admin")
     @PUT
     @Path("updateGroup/{id}/{groups_name}/{user_id}")
     public void updateGroup(@PathParam("id") Integer id, @PathParam("groups_name") String group_name, @PathParam("user_id") Integer user_id) {
         admin.updateGroup(id, group_name, user_id);
     }
 
+//    @RolesAllowed("admin")
     @DELETE
     @Path("removeGroup/{id}/{user_id}")
     public void removeGroup(@PathParam("id") Integer id, @PathParam("user_id") Integer user_id) {
@@ -105,6 +124,7 @@ public class EcommerceapiResource {
     }
 
     //Brands
+//    @RolesAllowed("admin")
     @GET
     @Path("getAllBrands")
     @Produces(MediaType.APPLICATION_JSON)
@@ -112,18 +132,28 @@ public class EcommerceapiResource {
         return admin.getAllBrands();
     }
 
+//    @RolesAllowed("admin")
     @POST
     @Path("addBrand/{name}")
     public void addBrand(@PathParam("name") String name) {
         admin.addBrand(name);
     }
 
+//    @RolesAllowed("admin")
     @PUT
     @Path("updateBrand/{id}/{groups_name}/{user_id}")
     public void updateBrand(@PathParam("groups_name") Integer id, @PathParam("user_id") String name) {
         admin.updateBrand(id, name);
     }
+    
+    @GET
+    @Path("getBrand/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Brands getBrand(@PathParam("id") Integer id){
+       return admin.getBrand(id);
+    }
 
+//    @RolesAllowed("admin")
     @DELETE
     @Path("removeGroup/{id}")
     public void removeBrand(@PathParam("id") Integer id) {
@@ -131,6 +161,7 @@ public class EcommerceapiResource {
     }
 
     //Categories
+//    @RolesAllowed("admin")
     @GET
     @Path("getAllCategories")
     @Produces(MediaType.APPLICATION_JSON)
@@ -138,25 +169,36 @@ public class EcommerceapiResource {
         return admin.getAllCategories();
     }
 
+//    @RolesAllowed("admin")
     @POST
     @Path("addCategory/{name}/{image}/{meta_title}/{meta_description}")
     public void addCategory(@PathParam("name") String name, @PathParam("image") String image, @PathParam("meta_title") String meta_title, @PathParam("meta_description") String meta_description) {
         admin.addCategory(name, image, meta_title, meta_description);
     }
 
+//    @RolesAllowed("admin")
     @PUT
     @Path("updateCategory/{id}/{name}/{image}/{meta_title}/{meta_description}")
     public void updateCategory(@PathParam("id") Integer id, @PathParam("name") String name, @PathParam("image") String image, @PathParam("meta_title") String meta_title, @PathParam("meta_description") String meta_description) {
         admin.updateCategory(id, name, image, meta_title, meta_description);
     }
 
+//    @RolesAllowed("admin")
     @DELETE
     @Path("removeCategory/{id}")
     public void removeCategory(@PathParam("id") Integer id) {
         admin.removeCategory(id);
     }
+    
+    @GET
+    @Path("getCategory/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Categories getCategory(@PathParam("id") Integer id){
+       return admin.getCategory(id);
+    }
 
     //Settings
+//    @RolesAllowed("admin")
     @GET
     @Path("getAllSettings")
     @Produces(MediaType.APPLICATION_JSON)
@@ -164,25 +206,36 @@ public class EcommerceapiResource {
         return admin.getAllSettings();
     }
 
+//    @RolesAllowed("admin")
     @POST
     @Path("addSetting/{sitemaplink}/{keyword}/{author}/{description}")
     public void addSetting(@PathParam("sitemaplink") String sitemaplink, @PathParam("keyword") String keyword, @PathParam("author") String author, @PathParam("description") String description) {
         admin.addSetting(sitemaplink, keyword, author, description);
     }
 
+//    @RolesAllowed("admin")
     @PUT
     @Path("updateSetting/{id}/{sitemaplink}/{keyword}/{author}/{description}")
     public void updateSetting(@PathParam("id") Integer id, @PathParam("sitemaplink") String sitemaplink, @PathParam("keyword") String keyword, @PathParam("author") String author, @PathParam("description") String description) {
         admin.updateSetting(id, sitemaplink, keyword, author, description);
     }
 
+//    @RolesAllowed("admin")
     @DELETE
     @Path("removeSetting/{id}")
     public void removeSetting(@PathParam("id")Integer id) {
         admin.removeSetting(id);
     }
+    
+    @GET
+    @Path("getSetting/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Settings getSetting(@PathParam("id") Integer id){
+       return admin.getSetting(id);
+    }
 
     //Banner
+//    @RolesAllowed("admin")
     @GET
     @Path("getAllBanners")
     @Produces(MediaType.APPLICATION_JSON)
@@ -196,20 +249,30 @@ public class EcommerceapiResource {
         admin.addBanner(title, description, link, image, is_active);
     }
 
+//    @RolesAllowed("admin")
     @PUT
     @Path("updateBanner/{id}/{title}/{description}/{link}/{image}/{is_active}")
     public void updateBanner(@PathParam("id") Integer id, @PathParam("title") String title, @PathParam("description") String description, @PathParam("link") String link, @PathParam("image") String image, @PathParam("is_active") Integer is_active) {
         admin.updateBanner(id, title, description, link, image, is_active);
     }
 
+//    @RolesAllowed("admin")
     @DELETE
     @Path("removeBanner/{id}")
     public void removeBanner(@PathParam("id")Integer id) {
         admin.removeBanner(id);
     }
     
+    @GET
+    @Path("getBanner/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Banners getBanner(@PathParam("id") Integer id){
+       return admin.getBanner(id);
+    }
+    
     
     //Product
+//    @RolesAllowed("admin")
     @GET
     @Path("getAllProducts")
     @Produces(MediaType.APPLICATION_JSON)
@@ -217,18 +280,21 @@ public class EcommerceapiResource {
         return admin.getAllProducts();
     }
 
+//    @RolesAllowed("admin")
     @POST
     @Path("addProduct/{category_id}/{brand_id}/{name}/{slug}/{description}/{image}/{qty}/{price}/{club_points}/{meta_title}/{meta_description}/{is_feature}/{is_active}")
   public void addProduct(@PathParam("category_id")Integer category_id, @PathParam("brand_id")Integer brand_id, @PathParam("name")String name, @PathParam("slug")String slug, @PathParam("description")String description, @PathParam("image")String image, @PathParam("qty")Integer qty, @PathParam("price")Integer price, @PathParam("club_points")Integer club_points, @PathParam("meta_title")String meta_title, @PathParam("meta_description")String meta_description, @PathParam("is_feature")Integer is_feature, @PathParam("is_active")Integer is_active) {
         admin.addProduct(category_id, brand_id, name, slug, description, image, qty, price, club_points, meta_title, meta_description, is_feature, is_active);
     }
 
-    @PUT
+//  @RolesAllowed("admin")  
+  @PUT
     @Path("updateBanner/{id}/{category_id}/{brand_id}/{name}/{slug}/{description}/{image}/{qty}/{price}/{club_points}/{meta_title}/{meta_description}/{is_feature}/{is_active}")
     public void updateProduct(@PathParam("id")Integer id, @PathParam("category_id")Integer category_id, @PathParam("brand_id")Integer brand_id, @PathParam("name")String name, @PathParam("slug")String slug, @PathParam("description")String description, @PathParam("image")String image, @PathParam("qty")Integer qty, @PathParam("price")Integer price, @PathParam("club_points")Integer club_points, @PathParam("meta_title")String meta_title, @PathParam("meta_description")String meta_description, @PathParam("is_feature")Integer is_feature, @PathParam("is_active")Integer is_active) {
         admin.updateProduct(id, category_id, brand_id, name, slug, description, image, qty, price, club_points, meta_title, meta_description, is_feature, is_active);
     }
 
+//    @RolesAllowed("admin")
     @DELETE
     @Path("removeProduct/{id}/{category_id}/{brand_id}")
     public void removeProduct(@PathParam("id")Integer id, @PathParam("category_id")Integer category_id, @PathParam("brand_id")Integer brand_id) {   
@@ -237,6 +303,7 @@ public class EcommerceapiResource {
     
     
     //Order
+//    @RolesAllowed("admin")
     @GET
     @Path("getAllOrders")
     @Produces(MediaType.APPLICATION_JSON)
@@ -244,6 +311,7 @@ public class EcommerceapiResource {
         return admin.getAllOrders();
     }
     
+//    @RolesAllowed("admin")
     @DELETE
     @Path("removeOrder/{id}")
     public void removeOrder(@PathParam("id")Integer id) {
@@ -252,6 +320,7 @@ public class EcommerceapiResource {
     
     
     //OrderDetails
+//    @RolesAllowed("admin")
     @GET
     @Path("getAllOrderDetails")
     @Produces(MediaType.APPLICATION_JSON)
@@ -261,6 +330,7 @@ public class EcommerceapiResource {
     
     
     //PaymentDetails
+//    @RolesAllowed("admin")
     @GET
     @Path("getAllPayments")
     @Produces(MediaType.APPLICATION_JSON)
@@ -269,6 +339,7 @@ public class EcommerceapiResource {
     }
     
     //Reviews
+//    @RolesAllowed("admin")
     @GET
     @Path("getAllReviews")
     @Produces(MediaType.APPLICATION_JSON)
@@ -276,13 +347,15 @@ public class EcommerceapiResource {
         return admin.getAllReviews();
     }
     
+//    @RolesAllowed("admin")
     @PUT
     @Path("updateReview/{id}/{rating}/{description}")
      public void updateReview(@PathParam("id")Integer id, @PathParam("rating")Integer rating, @PathParam("description")String description) {
         admin.updateReview(id, rating, description);
     }
      
-    @DELETE
+//    @RolesAllowed("admin")
+     @DELETE
     @Path("removeReview/{id}")
      public void removeReview(@PathParam("id")Integer id) {
         admin.removeReview(id);
@@ -291,6 +364,7 @@ public class EcommerceapiResource {
      
     //UserSide
      
+//    @RolesAllowed({"admin","customer"})
     @GET
     @Path("getUser/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -300,7 +374,9 @@ public class EcommerceapiResource {
      
     
     //Display Products
-    @GET
+    
+//    @RolesAllowed({"admin","customer"})
+     @GET
     @Path("userProducts")
     @Produces(MediaType.APPLICATION_JSON)
     public Collection<Products> userProducts() {
@@ -309,6 +385,7 @@ public class EcommerceapiResource {
     
     
     //UserCart
+//    @RolesAllowed({"admin","customer"})
     @GET
     @Path("userCarts/{user_id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -317,6 +394,7 @@ public class EcommerceapiResource {
     }
     
     //AddUserOrder
+//    @RolesAllowed({"admin","customer"})
     @POST
     @Path("addOrder/{order_no}/{user_id}/{name}/{address}/{pincode}")
     public void addOrder(@PathParam("order_no")Integer order_no, @PathParam("user_id")Integer user_id, @PathParam("name")String name, @PathParam("address")String address, @PathParam("pincode")Integer pincode) {
@@ -324,6 +402,7 @@ public class EcommerceapiResource {
     }
     
     //AddUserOrderDetails
+//    @RolesAllowed({"admin","customer"})
     @POST
     @Path("addOrderDetail/{order_no}/{product_id}/{total}")
     public void addOrderDetail(@PathParam("order_no")Integer order_no, @PathParam("product_id")Integer product_id, @PathParam("total")Integer total) {
@@ -331,6 +410,7 @@ public class EcommerceapiResource {
     }
     
     //AddUserOrderPayment
+//    @RolesAllowed({"admin","customer"})
     @POST
     @Path("addPayment/{order_no}/{amount}/{method}")
     public void addPayment(@PathParam("order_no")Integer order_no, @PathParam("amount")Integer amount, @PathParam("method")String method) {
@@ -340,6 +420,7 @@ public class EcommerceapiResource {
     
     
     //UserOrders
+//    @RolesAllowed({"admin","customer"})
     @GET
     @Path("userOrders/{user_id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -348,6 +429,7 @@ public class EcommerceapiResource {
     }
     
     //UserReviews
+//    @RolesAllowed({"admin","customer"})
     @GET
     @Path("productReviews/{product_id}")
     @Produces(MediaType.APPLICATION_JSON)
