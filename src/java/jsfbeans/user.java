@@ -29,6 +29,4 @@ public class user {
     public Collection<Users> showUserData(){
             return ab.getAllUsers();
     }
-    
-    
 }

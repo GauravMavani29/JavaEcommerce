@@ -32,5 +32,24 @@
         <url-pattern>/faces/admin/*</url-pattern>
     </filter-mapping>
     
+    <filter>
+        <filter-name>logged</filter-name>
+        <filter-class>filters.Logged</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>logged</filter-name>
+        <url-pattern>/faces/login.xhtml</url-pattern>
+        <url-pattern>/faces/register.xhtml</url-pattern>
+    </filter-mapping>
+    
+    <filter>
+        <filter-name>UserAuth</filter-name>
+        <filter-class>filters.UserAuth</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>UserAuth</filter-name>
+        <url-pattern>/faces/user/cart.xhtml</url-pattern>
+    </filter-mapping>
+    
     
 </web-app>

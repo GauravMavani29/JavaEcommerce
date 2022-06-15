@@ -50,11 +50,6 @@ public class auth {
         user = new Users();
     }
     
-    public String abcd() {
-        return "index.xhtml";
-    }
-
-    
     public String registerUser(){
         String saltedPassword = SALT + user.getPassword();
 	String hashedPassword = generateHash(saltedPassword);
@@ -70,19 +65,23 @@ public class auth {
         u = new GenericType<Users>(){};
         String saltedPassword = SALT + user.getPassword();
         String hashedPassword = generateHash(saltedPassword);
-        res = rest.getUserByEmailPassword(Response.class, user.getEmail(), hashedPassword);
-        System.out.println(res);
-        if(res.getStatus() == 200){
+//        res = rest.getUserByEmailPassword(Response.class, user.getEmail(), hashedPassword);
+//        System.out.println(res);
+
+
+        try {
+            Users a = ab.getUserByEmailPassword(user.getEmail(), hashedPassword);
+            HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+            session.setAttribute("user", a);
+            session.setMaxInactiveInterval(15*60);
+            us = (Users) session.getAttribute("user");
             clearUser();
-            Users a = res.readEntity(u);
-             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-                session.setAttribute("user", a);
-                session.setMaxInactiveInterval(15*60);
-                us = (Users) session.getAttribute("user");
-                
+            if(us.getRoleAs() == 1){
                 return "/admin/dashboard.xhtml?faces-redirect=true";
-        }else{        
-            clearUser();
+            }else{
+                return "/index.xhtml?faces-redirect=true";
+            }
+         } catch (Exception e) {
             return "login.xhtml?faces-redirect=true";
         }
     }

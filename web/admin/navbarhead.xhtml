@@ -313,7 +313,7 @@
                        Setting</a
                      >
                      <div class="dropdown-divider"></div><h:form>
-                         <i class="fa fa-power-off me-1 ms-1"></i> <h:commandButton value="Logout" action="${auth.logoutUser()}"  /></h:form>
+                         <i class="fa fa-power-off me-1 ms-1"></i> <h:commandButton value="Logout" action="${auth.logoutUser()}" styleClass="btn px-5 btn-primary"   /></h:form>
                      <div class="dropdown-divider"></div>
                      <div class="ps-4 p-10">
                        <a
@@ -416,30 +416,7 @@
                   </li>
                 </ul>
               </li>
-              <li class="sidebar-item">
-                <a
-                  class="sidebar-link has-arrow waves-effect waves-dark"
-                  href="javascript:void(0)"
-                  aria-expanded="false"
-                  ><i class="mdi mdi-settings"></i
-                  ><span class="hide-menu">Setting </span></a
-                >
-                <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item">
-                    <a href="/EcommerceProject/faces/admin/setting/create.xhtml" class="sidebar-link"
-                      ><i class="mdi mdi-note-outline"></i
-                      ><span class="hide-menu"> New Setting </span></a
-                    >
-                  </li>
-                  <li class="sidebar-item">
-                    <a href="/EcommerceProject/faces/admin/setting/display.xhtml" class="sidebar-link"
-                      ><i class="mdi mdi-note-plus"></i
-                      ><span class="hide-menu"> All Settings </span></a
-                    >
-                  </li>
-                </ul>
-              </li>
-                
+             
              <li class="sidebar-item">
                 <a
                   class="sidebar-link has-arrow waves-effect waves-dark"
@@ -497,6 +474,7 @@
                   </li>
                 </ul>
               </li>
+                
                 <li class="sidebar-item">
                 <a
                   class="sidebar-link has-arrow waves-effect waves-dark"
@@ -514,6 +492,30 @@
                   </li>
                 </ul>
               </li>
+                 <li class="sidebar-item">
+                <a
+                  class="sidebar-link has-arrow waves-effect waves-dark"
+                  href="javascript:void(0)"
+                  aria-expanded="false"
+                  ><i class="mdi mdi-settings"></i
+                  ><span class="hide-menu">Setting </span></a
+                >
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a href="/EcommerceProject/faces/admin/setting/create.xhtml" class="sidebar-link"
+                      ><i class="mdi mdi-note-outline"></i
+                      ><span class="hide-menu"> New Setting </span></a
+                    >
+                  </li>
+                  <li class="sidebar-item">
+                    <a href="/EcommerceProject/faces/admin/setting/display.xhtml" class="sidebar-link"
+                      ><i class="mdi mdi-note-plus"></i
+                      ><span class="hide-menu"> All Settings </span></a
+                    >
+                  </li>
+                </ul>
+              </li>
+                
               <li class="sidebar-item">
                 <a
                   class="sidebar-link waves-effect waves-dark sidebar-link"

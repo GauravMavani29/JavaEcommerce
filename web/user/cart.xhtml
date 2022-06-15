@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <ui:include src="/user/stylesheets.xhtml"></ui:include>
+    </h:head>
+    <h:body>
+        <ui:include src="/user/navbarhead.xhtml"></ui:include>
+        <div class="single-product-area">
+            <div class="zigzag-bottom"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="product-content-right">
+                            <div class="woocommerce">
+                                <form method="post" action="#">
+                                    <table cellspacing="0" class="shop_table cart">
+                                        <thead>
+                                            <tr>
+                                                <th class="product-remove">&nbsp;</th>
+                                                <th class="product-thumbnail">&nbsp;</th>
+                                                <th class="product-name">Product</th>
+                                                <th class="product-price">Price</th>
+                                                <th class="product-quantity">Quantity</th>
+                                                <th class="product-subtotal">Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <ui:repeat value="#{shop.cartlist}" var="c">
+                                                <tr class="cart_item">
+                                                    <h:form>
+                                                        <td class="product-remove">
+                                                            <h:commandButton action="#{shop.removeCart(c.id)}" class="remove text-white btn-btn-danger" value="X" onclick="return confirm('Are you sure to delete')"></h:commandButton>
+                                                        </td>
+
+                                                        <td class="product-thumbnail">
+                                                            <a href="single-product.html"><img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" src="/EcommerceProject/faces/resources/product/#{c.productId.image}" /></a>
+                                                        </td>
+
+                                                        <td class="product-name">
+                                                            <a href="single-product.html">#{c.productId.name}</a> 
+                                                        </td>
+
+                                                        <td class="product-price">
+                                                            <span class="amount">$#{c.productId.price}</span> 
+                                                        </td>
+
+                                                        <td class="product-quantity">
+                                                            <span class="amount">#{c.productId.qty}</span> 
+    <!--                                                        <div class="quantity buttons_added">
+                                                                <input type="number" size="4" class="input-text qty text" title="Qty" value="1" min="0" step="1" />
+                                                            </div>-->
+                                                        </td>
+
+                                                        <td class="product-subtotal">
+                                                            <span class="amount">£15.00</span> 
+                                                        </td>
+                                                    </h:form>
+                                                </tr>
+                                            </ui:repeat>
+                                            <tr>
+                                                <td class="actions" colspan="6">
+                                                    <!--<input type="submit" value="Update Cart" name="update_cart" class="button" />-->
+                                                    <input type="submit" value="Checkout" name="proceed" class="checkout-button button alt wc-forward" />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </form>
+
+                                <div class="cart-collaterals">
+                                    <div class="cart_totals ">
+                                        <h2>Cart Totals</h2>
+
+                                        <table cellspacing="0">
+                                            <tbody>
+                                                <tr class="cart-subtotal">
+                                                    <th>Cart Subtotal</th>
+                                                    <td><span class="amount">£15.00</span></td>
+                                                </tr>
+
+                                                <tr class="shipping">
+                                                    <th>Shipping and Handling</th>
+                                                    <td>Free Shipping</td>
+                                                </tr>
+
+                                                <tr class="order-total">
+                                                    <th>Order Total</th>
+                                                    <td><strong><span class="amount">£15.00</span></strong> </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>                        
+                        </div>                    
+                    </div>
+                </div>                        
+            </div>                    
+        </div>
+        <ui:include src="/user/navbarfoot.xhtml"></ui:include>
+    </h:body>
+</html>
+

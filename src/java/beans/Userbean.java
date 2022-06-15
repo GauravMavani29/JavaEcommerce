@@ -32,9 +32,9 @@ public class Userbean implements UserbeanLocal {
     }
 
     @Override
-    public Collection<Carts> userCarts(Users user_id) {
+    public Collection<Carts> userCarts(Users customerId) {
         Query q = em.createNamedQuery("Carts.findByUserId");
-        q.setParameter("user_id", user_id);        
+        q.setParameter("customerId", customerId);        
         return q.getResultList();
     }
 
@@ -101,6 +101,51 @@ public class Userbean implements UserbeanLocal {
         Query q = em.createNamedQuery("Orders.findByProductId");
         q.setParameter("product_id", product_id);        
         return q.getResultList();
+    }
+
+    @Override
+    public Collection<Banners> getactiveBanner() {
+        return em.createNamedQuery("Banners.findByIsActive").setParameter("isActive", 1).getResultList();
+    }
+
+    @Override
+    public Collection<Products> getlatestProduct() {
+        return em.createNamedQuery("Products.latestProducts").setMaxResults(5).getResultList();
+    }
+
+    @Override
+    public Collection<Categories> getAllCategories() {
+        return em.createNamedQuery("Categories.findAll").getResultList();
+    }
+
+    @Override
+    public Products getProduct(Integer id) {
+        return (Products) em.createNamedQuery("Products.findById").getSingleResult();
+    }
+
+    @Override
+    public int addToCart(Integer product_id, Integer customer_id, Integer qty, Integer total) {
+        Products p =  em.find(Products.class, product_id);
+        Users u =  em.find(Users.class, customer_id);
+         try {
+            Carts cdata = (Carts) em.createNamedQuery("Carts.findByUser").setParameter("customerId", u).setParameter("productId", p).getSingleResult();
+            return 1;
+         } catch (Exception e) {
+             Carts c = new Carts();
+            c.setProductId(p);
+            c.setCustomerId(u);
+            c.setQty(qty);
+            c.setTotal(total);
+            em.persist(c);  
+            return 0;
+        }
+        
+    }
+
+    @Override
+    public void removeCart(Integer cid) {
+         Carts c = (Carts) em.find(Carts.class, cid);
+        em.remove(c);
     }
 
 }

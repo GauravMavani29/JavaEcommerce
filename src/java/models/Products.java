@@ -48,7 +48,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Products.findByMetaDescription", query = "SELECT p FROM Products p WHERE p.metaDescription = :metaDescription"),
     @NamedQuery(name = "Products.findByIsFeature", query = "SELECT p FROM Products p WHERE p.isFeature = :isFeature"),
     @NamedQuery(name = "Products.findByIsActive", query = "SELECT p FROM Products p WHERE p.isActive = :isActive"),
-    @NamedQuery(name = "Products.findByCreatedAt", query = "SELECT p FROM Products p WHERE p.createdAt = :createdAt")})
+    @NamedQuery(name = "Products.findByCreatedAt", query = "SELECT p FROM Products p WHERE p.createdAt = :createdAt"),
+    @NamedQuery(name = "Products.latestProducts", query = "SELECT p FROM Products p ORDER BY P.id ASC")
+})
 public class Products implements Serializable {
 
     private static final long serialVersionUID = 1L;

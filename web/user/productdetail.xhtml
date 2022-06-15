@@ -1,0 +1,161 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+   <h:head>
+        <ui:include src="/user/stylesheets.xhtml"></ui:include>
+    </h:head>
+    <h:body>
+        <ui:include src="/user/navbarhead.xhtml"></ui:include>
+        
+        <div class="product-big-title-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="product-bit-title text-center">
+                        <h2>Shop</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="single-product-area">
+        <div class="zigzag-bottom"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="single-sidebar">
+                        <h2 class="sidebar-title">Search Products</h2>
+                        <form action="">
+                            <input type="text" placeholder="Search products..." />
+                            <input type="submit" value="Search" />
+                        </form>
+                    </div>
+                    
+                    <div class="single-sidebar">
+                        <h2 class="sidebar-title">Products</h2>
+                        <ui:repeat value="#{general.latestProducts}" var="r">
+                        <div class="thubmnail-recent">
+                            <img src="/EcommerceProject/faces/resources/product/#{r.image}" class="recent-thumb" alt="" />
+                            <h:form>
+                                <h2> <h:commandLink action="#{shop.productDetail(r)}">#{r.name}</h:commandLink></h2>
+                            </h:form>
+                            <div class="product-sidebar-price">
+                                <ins>$#{r.price}</ins>
+                            </div>                             
+                        </div>
+                        </ui:repeat>
+                    </div>
+                </div>
+                
+                <div class="col-md-8">
+                    <div class="product-content-right">  
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="product-images">
+                                    <div class="product-main-img">
+                                        <img src="/EcommerceProject/faces/resources/product/#{shop.product.image}" alt="" />
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-6">
+                                <div class="product-inner">
+                                    <h2 class="product-name">#{shop.product.name}</h2>
+                                    <div class="product-inner-price">
+                                        <ins>$#{shop.product.price}</ins>
+                                    </div>    
+                                    
+                                    <h:form class="cart">
+                                        <div class="quantity">
+                                            <h:inputText id="qty" value="#{shop.qty}" size="10" required="true" class="input-text qty text">
+                                                <f:validateLongRange maximum="10" minimum="1" />
+                                            </h:inputText>
+                                        </div>
+                                        <h:commandButton value="Add to cart" styleClass="add_to_cart_button" action="${shop.addToCart(shop.product)}"  />
+                                    </h:form>   
+                                    
+                                    
+                                    <div class="product-inner-category">
+                                        <p class="text-danger">#{shop.cartError}</p>
+                                        
+                                    </div> 
+                                    
+                                    <div role="tabpanel">
+                                        <ul class="product-tab" role="tablist">
+                                            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Description</a></li>
+                                            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Reviews</a></li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div role="tabpanel" class="tab-pane fade in active" id="home">
+                                                <h2>Product Description</h2>  
+                                                <p>#{shop.product.description}</p>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade" id="profile">
+                                                <h2>Reviews</h2>
+                                                <div class="submit-review">
+                                                    <p><label for="name">Name</label> <input name="name" type="text" /></p>
+                                                    <p><label for="email">Email</label> <input name="email" type="email" /></p>
+                                                    <div class="rating-chooser">
+                                                        <p>Your rating</p>
+
+                                                        <div class="rating-wrap-post">
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                        </div>
+                                                    </div>
+                                                    <p><label for="review">Your review</label> <textarea name="review" id="" cols="30" rows="10"></textarea></p>
+                                                    <p><input type="submit" value="Submit" /></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="related-products-wrapper">
+                            <h2 class="related-products-title">Related Products</h2>
+                            <div class="related-products-carousel">
+                                <ui:repeat value="#{shop.relatedProducts}" var="r">
+                                <div class="single-product">
+                                    <div class="product-f-image">
+                                        <img src="/EcommerceProject/faces/resources/product/#{r.image}" alt="" />
+                                        <div class="product-hover">
+                                            <h:form>
+                                                <h:commandLink action="${shop.addToCart(r)}"  class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</h:commandLink>
+                                                 <h:commandLink action="#{shop.productDetail(r)}" class="view-details-link"><i class="fa fa-link"></i> See details</h:commandLink>
+                                            </h:form>
+                                        </div>
+                                    </div>
+                                    <h:form>
+                                        <h2> <h:commandLink action="#{shop.productDetail(r)}">#{r.name}</h:commandLink></h2>
+                                    </h:form>
+
+                                    <div class="product-carousel-price">
+                                        <ins>$#{r.price}</ins>
+                                    </div> 
+                                </div>                                   
+                                </ui:repeat>
+                            </div>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+        <ui:include src="/user/navbarfoot.xhtml"></ui:include>
+    </h:body>
+</html>
+

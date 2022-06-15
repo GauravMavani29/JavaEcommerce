@@ -20,8 +20,12 @@ public interface UserbeanLocal {
     // Product
     Collection<Products> userProducts();
     
+    Products getProduct(Integer id);
+    
     //Cart
+    int addToCart(Integer product_id, Integer customer_id, Integer qty, Integer total);
     Collection<Carts> userCarts(Users user_id);
+    void removeCart(Integer cid);
     
     //Order
     void addOrder(Integer order_no, Integer user_id, String name, String address, Integer pincode);
@@ -36,4 +40,13 @@ public interface UserbeanLocal {
     
     //Reviews
     Collection<Reviews> productReviews(Products product_id);
+    
+    //Home
+    Collection<Banners> getactiveBanner();
+    
+    //Latest Products
+    Collection<Products> getlatestProduct();
+    
+    //Categories
+    Collection<Categories> getAllCategories();
 }

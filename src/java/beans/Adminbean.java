@@ -36,6 +36,7 @@ public class Adminbean implements AdminbeanLocal {
 
     @Override
     public void addUser(String name, String email, String password, String address, String phone, Integer pincode) {
+        int role = 1;
         Users u = new Users();
         u.setName(name);
         u.setEmail(email);
@@ -43,6 +44,7 @@ public class Adminbean implements AdminbeanLocal {
         u.setAddress(address);
         u.setPhone(phone);
         u.setPincode(pincode);
+        u.setRoleAs((short) role);
         em.persist(u);
     }
 

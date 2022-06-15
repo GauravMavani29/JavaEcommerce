@@ -11,7 +11,7 @@ import models.Categories;
 import models.OrderDetails;
 import models.Reviews;
 
-@Generated(value="EclipseLink-2.7.9.v20210604-rNA", date="2022-06-13T15:09:02")
+@Generated(value="EclipseLink-2.7.9.v20210604-rNA", date="2022-06-15T11:47:17")
 @StaticMetamodel(Products.class)
 public class Products_ { 
 

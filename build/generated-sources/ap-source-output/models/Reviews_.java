@@ -8,7 +8,7 @@ import models.Orders;
 import models.Products;
 import models.Users;
 
-@Generated(value="EclipseLink-2.7.9.v20210604-rNA", date="2022-06-13T15:09:02")
+@Generated(value="EclipseLink-2.7.9.v20210604-rNA", date="2022-06-15T11:47:17")
 @StaticMetamodel(Reviews.class)
 public class Reviews_ { 
 

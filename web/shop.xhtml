@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <ui:include src="/user/stylesheets.xhtml"></ui:include>
+    </h:head>
+    <h:body>
+        <ui:include src="/user/navbarhead.xhtml"></ui:include>
+
+        <div class="product-big-title-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="product-bit-title text-center">
+                            <h2>Shop</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="single-product-area">
+            <div class="zigzag-bottom"></div>
+            <div class="container">
+                <div class="row">
+                    <h:form prependId="false">
+                        <ui:repeat value="#{shop.productlist}" var="p">
+                            <div class="col-md-3 col-sm-6">
+                                <div class="single-shop-product">
+                                    <div class="product-upper">
+                                        <img src="/EcommerceProject/faces/resources/product/#{p.image}" alt="" />
+                                    </div>
+
+                                    <h2> <h:commandLink action="#{shop.productDetail(p)}">#{p.name}</h:commandLink></h2>
+
+                                    <div class="product-carousel-price">
+                                        <ins>$#{p.price}</ins>
+                                    </div>  
+
+                                    <div class="product-option-shop">
+                                        <h:commandButton value="Add to cart"  action="#{shop.addToCart(p)}" />
+                                    </div>                       
+                                </div>
+                            </div>
+                        </ui:repeat>
+                    </h:form>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="product-pagination text-center">
+                            <nav>
+                                <ul class="pagination">
+                                    <li>
+                                        <a href="#" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li><a href="#">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#">4</a></li>
+                                    <li><a href="#">5</a></li>
+                                    <li>
+                                        <a href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ui:include src="/user/navbarfoot.xhtml"></ui:include>
+    </h:body>
+</html>
+
